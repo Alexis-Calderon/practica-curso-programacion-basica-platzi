@@ -7,12 +7,14 @@ function seleccionarMascotaJugador() {
   let radio1 = document.getElementById("Hipodoge");
   let radio2 = document.getElementById("Capipepo");
   let radio3 = document.getElementById("Ratigueya");
+  let spanMascotaJugador = document.getElementById("mascota_jugador");
+
   if (radio1.checked) {
-    alert('Selecionaste a Hipodoge');
+    spanMascotaJugador.innerHTML = 'Hipodoge'
   } else if (radio2.checked) {
-    alert('Selecionaste a Capipepo');
+    spanMascotaJugador.innerHTML = 'Capipepo'
   } else if (radio3.checked) {
-    alert('Selecionaste a Ratigueya');
+    spanMascotaJugador.innerHTML = 'Ratigueya'
   } else {
     alert('Selecciona una mascota');
   }
