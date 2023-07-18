@@ -38,7 +38,7 @@ input{
     margin-top: 30px;
 }
 
-.tarjetas {
+.tarjetas, .tarjetas_ataques {
     display: flex;
     gap: 10px;
 }
@@ -98,4 +98,13 @@ input{
 .ataques {
     display: grid;
     grid-template-columns: 50% 50%;
+    text-align: center;
+    color: white;
+    gap: 10px;
+}
+
+@media (max-width: 360px)  {
+    .tarjetas, .tarjetas_ataques{
+        flex-direction: column;
+    }
 }
