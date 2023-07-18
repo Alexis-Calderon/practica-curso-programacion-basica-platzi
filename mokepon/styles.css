@@ -1,10 +1,10 @@
-
 @import url('https://fonts.googleapis.com/css2?family=Fredoka&family=Poppins:wght@300&display=swap');
 
 body{
     background-color: #041562;
     font-family: 'Poppins', sans-serif;
 }
+
 .titulo {
     color: white;
     font-size: 32px;
@@ -89,8 +89,13 @@ input{
 }
 
 #boton_reiniciar {
-    border-color: transparent ;
-     color: #11468f;
-     font-family: 'Poppins', sans-serif;
-     background: none;
+    border-color: transparent;
+    color: #11468f;
+    font-family: 'Poppins', sans-serif;
+    background: none;
+}
+
+.ataques {
+    display: grid;
+    grid-template-columns: 50% 50%;
 }
