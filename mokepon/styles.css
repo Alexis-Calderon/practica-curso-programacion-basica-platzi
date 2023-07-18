@@ -23,8 +23,12 @@ body{
     align-items: center;
 }
 
-input{
+input {
     display: none;
+}
+
+input:checked + label {
+    background-color: #5d8bf4;
 }
 
 #boton_mascota {
