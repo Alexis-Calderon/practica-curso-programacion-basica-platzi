@@ -26,7 +26,7 @@ function iniciarHtml() {
 
 function seleccionarMascotaJugador() {
   let sectionSeleccionarAtaque = document.getElementById("seleccionar_ataque");
-  sectionSeleccionarAtaque.style.display = 'block';
+  sectionSeleccionarAtaque.style.display = 'flex';
   let sectionSeleccionarMascota = document.getElementById("seleccionar_mascota");
   sectionSeleccionarMascota.style.display = 'none';
 
