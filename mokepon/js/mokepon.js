@@ -7,9 +7,6 @@ const botonFuego = document.getElementById("boton_fuego");
 const botonAgua = document.getElementById("boton_agua");
 const botonReiniciar = document.getElementById("boton_reiniciar");
 const sectionSeleccionarMascota = document.getElementById("seleccionar_mascota");
-const radio1 = document.getElementById("Hipodoge");
-const radio2 = document.getElementById("Capipepo");
-const radio3 = document.getElementById("Ratigueya");
 const spanMascotaJugador = document.getElementById("mascota_jugador");
 const spanMascotaEnemigo = document.getElementById("mascota_enemigo");
 const spanVidasJugador = document.getElementById("vidas_jugador");
@@ -25,6 +22,9 @@ let ataqueEnemigo;
 let opcionDeMokepones;
 let vidasJugador = 3;
 let vidasEnemigo = 3;
+let radio1 
+let radio2 
+let radio3
 
 class Mokepon {
   constructor(nombre, foto, vida) {
@@ -88,6 +88,9 @@ function iniciarHtml() {
         <img src=${mokepon.foto} alt=${mokepon.nombre}/>
     </label>`
     contenedorTarjetas.innerHTML += opcionDeMokepones;
+    radio1 = document.getElementById('Hipodoge')
+    radio2 = document.getElementById('Capipepo')
+    radio3 = document.getElementById('Ratigueya')
   })
 
   sectionReiniciar.style.display = "none";
