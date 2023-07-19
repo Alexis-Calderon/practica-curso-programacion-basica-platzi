@@ -18,32 +18,46 @@ const seccionMensajes = document.getElementById("resultado");
 const ataquesDelJugador = document.getElementById("ataques_del_jugador");
 const ataquesDelEnemigo = document.getElementById("ataques_del_enemigo");
 
+let mokepones = [];
 let ataqueJugador;
 let ataqueEnemigo;
 let vidasJugador = 3;
 let vidasEnemigo = 3;
 
-class Mokepon{
-  constructor(nombre, foto, vida){
+class Mokepon {
+  constructor(nombre, foto, vida) {
     this.nombre = nombre;
     this.foto = foto;
     this.vida = vida;
   }
 }
 
-let hipodoge = new Mokepon('Hipodoge','./assets/mokepons_mokepon_hipodoge_attack.png',5)
-let Capipepo = new Mokepon('Capipepo','./assets/mokepons_mokepon_capipepo_attack.png',5)
-let Ratigueya = new Mokepon('Ratigueya','./assets/mokepons_mokepon_ratigueya_attack.png',5)
+let hipodoge = new Mokepon(
+  "Hipodoge",
+  "./assets/mokepons_mokepon_hipodoge_attack.png",
+  5
+);
+let capipepo = new Mokepon(
+  "Capipepo",
+  "./assets/mokepons_mokepon_capipepo_attack.png",
+  5
+);
+let ratigueya = new Mokepon(
+  "Ratigueya",
+  "./assets/mokepons_mokepon_ratigueya_attack.png",
+  5
+);
+mokepones.push(hipodoge, capipepo, ratigueya);
 
 function iniciarHtml() {
-  sectionSeleccionarAtaque.style.display = 'none';
-  sectionReiniciar.style.display = 'none';
+  sectionSeleccionarAtaque.style.display = "none";
+  sectionReiniciar.style.display = "none";
   botonMascotaJugador.addEventListener("click", seleccionarMascotaJugador);
   botonFuego.addEventListener("click", ataqueFuego);
   botonAgua.addEventListener("click", ataqueAgua);
   botonTierra.addEventListener("click", ataqueTierra);
   botonReiniciar.addEventListener("click", reiniciarJuego);
-}
+};
 
 function seleccionarMascotaJugador() {
   sectionSeleccionarAtaque.style.display = 'flex';
