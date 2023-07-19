@@ -22,9 +22,9 @@ let ataqueEnemigo;
 let opcionDeMokepones;
 let vidasJugador = 3;
 let vidasEnemigo = 3;
-let radio1 
-let radio2 
-let radio3
+let inpuHipodoge 
+let inputCapipepo 
+let inputRatigueya
 
 class Mokepon {
   constructor(nombre, foto, vida) {
@@ -88,9 +88,9 @@ function iniciarHtml() {
         <img src=${mokepon.foto} alt=${mokepon.nombre}/>
     </label>`
     contenedorTarjetas.innerHTML += opcionDeMokepones;
-    radio1 = document.getElementById('Hipodoge')
-    radio2 = document.getElementById('Capipepo')
-    radio3 = document.getElementById('Ratigueya')
+    inpuHipodoge = document.getElementById('Hipodoge')
+    inputCapipepo = document.getElementById('Capipepo')
+    inputRatigueya = document.getElementById('Ratigueya')
   })
 
   sectionReiniciar.style.display = "none";
@@ -104,12 +104,12 @@ function iniciarHtml() {
 function seleccionarMascotaJugador() {
   sectionSeleccionarAtaque.style.display = 'flex';
   sectionSeleccionarMascota.style.display = 'none';
-  if (radio1.checked) {
-    spanMascotaJugador.innerHTML = "Hipodoge";
-  } else if (radio2.checked) {
-    spanMascotaJugador.innerHTML = "Capipepo";
-  } else if (radio3.checked) {
-    spanMascotaJugador.innerHTML = "Ratigueya";
+  if (inpuHipodoge.checked) {
+    spanMascotaJugador.innerHTML = inpuHipodoge.id;
+  } else if (inputCapipepo.checked) {
+    spanMascotaJugador.innerHTML = inputCapipepo.id;
+  } else if (inputRatigueya.checked) {
+    spanMascotaJugador.innerHTML = inputRatigueya.id;
   } else {
     alert("Selecciona una mascota");
   }
