@@ -29,6 +29,7 @@ class Mokepon {
     this.nombre = nombre;
     this.foto = foto;
     this.vida = vida;
+    this.ataques = [];
   }
 }
 
@@ -47,6 +48,31 @@ let ratigueya = new Mokepon(
   "./assets/mokepons_mokepon_ratigueya_attack.png",
   5
 );
+
+hipodoge.ataques.push(
+  { nombre: "💧", id: "boton_agua" },
+  { nombre: "💧", id: "boton_agua" },
+  { nombre: "💧", id: "boton_agua" },
+  { nombre: "🔥", id: "boton_fuego" },
+  { nombre: "🌱", id: "boton_tierra" },
+);
+
+capipepo.ataques.push(
+  { nombre: "🌱", id: "boton_tierra" },
+  { nombre: "🌱", id: "boton_tierra" },
+  { nombre: "🌱", id: "boton_tierra" },
+  { nombre: "💧", id: "boton_agua" },
+  { nombre: "🔥", id: "boton_fuego" },
+);
+
+ratigueya.ataques.push(
+  { nombre: "🔥", id: "boton_fuego" },
+  { nombre: "🔥", id: "boton_fuego" },
+  { nombre: "🔥", id: "boton_fuego" },
+  { nombre: "🌱", id: "boton_tierra" },
+  { nombre: "💧", id: "boton_agua" },
+);
+
 mokepones.push(hipodoge, capipepo, ratigueya);
 
 function iniciarHtml() {
