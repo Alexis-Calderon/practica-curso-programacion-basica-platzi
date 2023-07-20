@@ -15,7 +15,7 @@ const contenedorTarjetas = document.getElementById('contenedor_tarjetas');
 const contenedorAtaques = document.getElementById('contenedor_ataques');
 
 let mokepones = [];
-let ataqueJugador;
+let ataqueJugador = [];
 let ataqueEnemigo;
 let opcionDeMokepones;
 let mascotaJugador;
@@ -28,6 +28,7 @@ let inputRatigueya
 let botonTierra
 let botonFuego
 let botonAgua
+let botones = []
 
 class Mokepon {
   constructor(nombre, foto, vida) {
@@ -133,7 +134,7 @@ function extraerAtaques(mascotaJugador) {
 function mostrarAtaques(ataques) {
   ataques.forEach((ataque) => {
     ataquesMokepon = `
-    <button id=${ataque.id} class="boton_de_ataque">${ataque.nombre}</button>
+    <button id=${ataque.id} class="boton_de_ataque BAtaque">${ataque.nombre}</button>
     `;
     contenedorAtaques.innerHTML += ataquesMokepon;
   });
@@ -141,35 +142,35 @@ function mostrarAtaques(ataques) {
   botonTierra = document.getElementById("boton_tierra");
   botonFuego = document.getElementById("boton_fuego");
   botonAgua = document.getElementById("boton_agua");
-  
-  botonFuego.addEventListener("click", ataqueFuego);
-  botonAgua.addEventListener("click", ataqueAgua);
-  botonTierra.addEventListener("click", ataqueTierra);
+  botones = document.querySelectorAll('.BAtaque')
+}
+
+function secuenciaAtaque(){
+  botones.forEach((boton) => {
+    boton.addEventListener('click', (e) => {
+      if(e.target.textContext === '🔥'){
+        ataqueJugador.push('FUEGO');
+        boton.style.background = '#112f58'
+      } else if (e.target.textContext === '💧'){
+        ataqueJugador.push('AGUA');
+        boton.style.background = '#112f58'
+      } else {
+        ataqueJugador.push('TIERRA');
+        boton.style.background = '#112f58'
+      }
+    })
+  })
 }
 
 function seleccionarMascotaEnemigo() {
   let mascotaAleatorio = aleatorio(0, mokepones.length -1);
   spanMascotaEnemigo.innerHTML = mokepones[mascotaAleatorio].nombre;
+  secuenciaAtaque()
 
 }
 
 function aleatorio(min, max) {
   return Math.floor(Math.random() * (max - min + 1) + min);
-}
-
-function ataqueFuego() {
-  ataqueJugador = "FUEGO";
-  ataqueAleatorioEnemigo();
-}
-
-function ataqueAgua() {
-  ataqueJugador = "AGUA";
-  ataqueAleatorioEnemigo();
-}
-
-function ataqueTierra() {
-  ataqueJugador = "TIERRA";
-  ataqueAleatorioEnemigo();
 }
 
 function ataqueAleatorioEnemigo() {
