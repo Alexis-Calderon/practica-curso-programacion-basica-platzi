@@ -30,6 +30,8 @@ let botonFuego
 let botonAgua
 let botones = []
 let ataquesMokeponEnemigo  = []
+let indexAtaqueJugador 
+let indexAtaqueEnemigo 
 
 class Mokepon {
   constructor(nombre, foto, vida) {
@@ -159,16 +161,15 @@ function secuenciaAtaque(){
         ataqueJugador.push('TIERRA');
         boton.style.background = '#112f58'
       }
+      ataqueAleatorioEnemigo()
     })
   })
-  ataqueAleatorioEnemigo()
 }
 
 function seleccionarMascotaEnemigo() {
   let mascotaAleatorio = aleatorio(0, mokepones.length -1);
   spanMascotaEnemigo.innerHTML = mokepones[mascotaAleatorio].nombre;
   ataquesMokeponEnemigo =  mokepones[mascotaAleatorio].ataques;
-  console.log(ataquesMokeponEnemigo)
   secuenciaAtaque()
 
 }
@@ -179,6 +180,7 @@ function aleatorio(min, max) {
 
 function ataqueAleatorioEnemigo() {
   let ataqueAleatorio = aleatorio(0, ataquesMokeponEnemigo.length -1);
+
   if (ataqueAleatorio == 0 || ataqueAleatorio == 1) {
     ataqueEnemigo.push("FUEGO");
   } else if (ataqueAleatorio == 3 || ataqueAleatorio == 4) {
@@ -186,12 +188,33 @@ function ataqueAleatorioEnemigo() {
   } else {
     ataqueEnemigo.push("TIERRA");
   }
-  combate();
+  iniciarPelea()
+}
+
+function iniciarPelea(){
+  if (ataqueJugador.le === 5){
+    combate();
+  }
+}
+
+function indexAmbosOponentes(jugador, enemigo) {
+  indexAtaqueJugador = ataqueJugador[jugador];
+  indexAtaqueEnemigo = ataqueEnemigo[enemigo];
+
 }
 
 function combate() {
+  for (let i = 0; i < ataqueJugador.length; i++) {
+    if (ataqueJugador[i] === ataqueEnemigo[i]) {
+      indexAmbosOponentes(i, i);
+      crearMensaje("EMPATE");
+    }
+  }
+
+
+
+
   if (ataqueJugador == ataqueEnemigo) {
-    crearMensaje("EMPATE");
   } else if (ataqueJugador == "FUEGO" && ataqueEnemigo == "TIERRA") {
     crearMensaje("Ganaste");
     vidasEnemigo--;
@@ -216,8 +239,8 @@ function crearMensaje(resultado) {
   let nuevoAtaqueDelJugador = document.createElement("p");
   let nuevoAtaqueDelEnemigo = document.createElement("p");
   seccionMensajes.innerHTML = resultado;
-  nuevoAtaqueDelJugador.innerHTML = ataqueJugador;
-  nuevoAtaqueDelEnemigo.innerHTML = ataqueEnemigo;
+  nuevoAtaqueDelJugador.innerHTML = indexAtaqueJugador;
+  nuevoAtaqueDelEnemigo.innerHTML = indexAtaqueEnemigo;
   ataquesDelJugador.appendChild(nuevoAtaqueDelJugador);
   ataquesDelEnemigo.appendChild(nuevoAtaqueDelEnemigo);
 }
