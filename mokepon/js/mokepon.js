@@ -123,9 +123,7 @@ function seleccionarMascotaJugador() {
   sectionSeleccionarMascota.style.display = "none";
   // sectionSeleccionarAtaque.style.display = "flex";
   sectionVerMapa.style.display = "flex";
-  intervalo = setInterval(pintarPersonaje, 50);
-
-  console.log(lienzo);
+  iniciarMapa()
   if (inpuHipodoge.checked) {
     spanMascotaJugador.innerHTML = inpuHipodoge.id;
     mascotaJugador = inpuHipodoge.id;
@@ -315,6 +313,31 @@ function moverDerecha() {
 function detenerMovimiento() {
   capipepo.velocidadX = 0
   capipepo.velocidadY = 0
+}
+
+function sePresionoUnaTecla(event) {
+  switch (event.key) {
+    case "ArrowUp":
+      moverArriba();
+      break;
+    case "ArrowDown":
+      moverAbajo();
+      break;
+    case "ArrowLeft":
+      moverIzquierda();
+      break;
+    case "ArrowRight":
+      moverDerecha();
+      break;
+    default:
+      break;
+  }
+}
+
+function iniciarMapa() {
+  intervalo = setInterval(pintarPersonaje, 50);
+  window.addEventListener("keydown", sePresionoUnaTecla);
+  window.addEventListener("keyup", detenerMovimiento);
 }
 
 window.addEventListener("load", iniciarHtml);
