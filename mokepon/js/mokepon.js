@@ -113,6 +113,13 @@ hipodoge.ataques.push(
   { nombre: "🔥", id: "boton_fuego" },
   { nombre: "🌱", id: "boton_tierra" }
 );
+hipodogeEnemigo.ataques.push(
+  { nombre: "💧", id: "boton_agua" },
+  { nombre: "💧", id: "boton_agua" },
+  { nombre: "💧", id: "boton_agua" },
+  { nombre: "🔥", id: "boton_fuego" },
+  { nombre: "🌱", id: "boton_tierra" }
+);
 
 capipepo.ataques.push(
   { nombre: "🌱", id: "boton_tierra" },
@@ -121,8 +128,22 @@ capipepo.ataques.push(
   { nombre: "💧", id: "boton_agua" },
   { nombre: "🔥", id: "boton_fuego" }
 );
+capipepoEnemigo.ataques.push(
+  { nombre: "🌱", id: "boton_tierra" },
+  { nombre: "🌱", id: "boton_tierra" },
+  { nombre: "🌱", id: "boton_tierra" },
+  { nombre: "💧", id: "boton_agua" },
+  { nombre: "🔥", id: "boton_fuego" }
+);
 
 ratigueya.ataques.push(
+  { nombre: "🔥", id: "boton_fuego" },
+  { nombre: "🔥", id: "boton_fuego" },
+  { nombre: "🔥", id: "boton_fuego" },
+  { nombre: "🌱", id: "boton_tierra" },
+  { nombre: "💧", id: "boton_agua" }
+);
+ratigueyaEnemigo.ataques.push(
   { nombre: "🔥", id: "boton_fuego" },
   { nombre: "🔥", id: "boton_fuego" },
   { nombre: "🔥", id: "boton_fuego" },
@@ -156,7 +177,6 @@ function iniciarHtml() {
 
 function seleccionarMascotaJugador() {
   sectionSeleccionarMascota.style.display = "none";
-  // sectionSeleccionarAtaque.style.display = "flex";
   if (inpuHipodoge.checked) {
     spanMascotaJugador.innerHTML = inpuHipodoge.id;
     mascotaJugador = inpuHipodoge.id;
@@ -172,7 +192,6 @@ function seleccionarMascotaJugador() {
   sectionVerMapa.style.display = "flex";
   iniciarMapa()
   extraerAtaques(mascotaJugador);
-  seleccionarMascotaEnemigo();
 }
 
 function extraerAtaques(mascotaJugador) {
@@ -220,10 +239,9 @@ function secuenciaAtaque() {
   });
 }
 
-function seleccionarMascotaEnemigo() {
-  let mascotaAleatorio = aleatorio(0, mokepones.length - 1);
-  spanMascotaEnemigo.innerHTML = mokepones[mascotaAleatorio].nombre;
-  ataquesMokeponEnemigo = mokepones[mascotaAleatorio].ataques;
+function seleccionarMascotaEnemigo(enemigo) {
+  spanMascotaEnemigo.innerHTML = enemigo.nombre;
+  ataquesMokeponEnemigo = enemigo.ataques;
   secuenciaAtaque();
 }
 
@@ -410,7 +428,10 @@ function revisarColicion (enemigo) {
     return;
   }
   detenerMovimiento()
-  alert('Hay colición con ' + enemigo.nombre)
+  clearInterval(intervalo)
+  sectionSeleccionarAtaque.style.display = "flex";
+  sectionVerMapa.style.display = 'none'
+  seleccionarMascotaEnemigo(enemigo);
 }
 
 window.addEventListener("load", iniciarHtml);
