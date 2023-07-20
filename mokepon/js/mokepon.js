@@ -12,6 +12,8 @@ const ataquesDelJugador = document.getElementById("ataques_del_jugador");
 const ataquesDelEnemigo = document.getElementById("ataques_del_enemigo");
 const contenedorTarjetas = document.getElementById("contenedor_tarjetas");
 const contenedorAtaques = document.getElementById("contenedor_ataques");
+const sectionVerMapa = document.getElementById("ver_mapa");
+const mapa = document.getElementById("mapa");
 
 let mokepones = [];
 let ataqueJugador = [];
@@ -33,6 +35,7 @@ let indexAtaqueJugador;
 let indexAtaqueEnemigo;
 let victoriasJugador = 0;
 let victoriasEnemigo = 0;
+let lienzo = mapa.getContext("2d");
 
 class Mokepon {
   constructor(nombre, foto, vida) {
@@ -40,6 +43,12 @@ class Mokepon {
     this.foto = foto;
     this.vida = vida;
     this.ataques = [];
+    this.x = 20;
+    this.y = 30;
+    this.ancho = 80;
+    this.alto = 80
+    this.mapaFoto = new Image();
+    this.mapaFoto.src = foto;
   }
 }
 
@@ -87,6 +96,7 @@ mokepones.push(hipodoge, capipepo, ratigueya);
 
 function iniciarHtml() {
   sectionSeleccionarAtaque.style.display = "none";
+  sectionVerMapa.style.display = "none";
 
   mokepones.forEach((mokepon) => {
     opcionDeMokepones = `
@@ -107,8 +117,12 @@ function iniciarHtml() {
 }
 
 function seleccionarMascotaJugador() {
-  sectionSeleccionarAtaque.style.display = "flex";
   sectionSeleccionarMascota.style.display = "none";
+  // sectionSeleccionarAtaque.style.display = "flex";
+  sectionVerMapa.style.display = "flex";
+
+
+  console.log(lienzo);
   if (inpuHipodoge.checked) {
     spanMascotaJugador.innerHTML = inpuHipodoge.id;
     mascotaJugador = inpuHipodoge.id;
@@ -262,6 +276,22 @@ function revisarVidas() {
 
 function reiniciarJuego() {
   location.reload();
+}
+
+function pintarPersonaje() {
+  lienzo.clearRect(0,0, mapa.clientWidth, mapa.height)
+  lienzo.drawImage(
+    capipepo.mapaFoto,
+    capipepo.x,
+    capipepo.y,
+    capipepo.ancho,
+    capipepo.alto
+  );
+}
+
+function moverCapipepo() {
+  capipepo.x = capipepo.x + 5;
+  pintarPersonaje()
 }
 
 window.addEventListener("load", iniciarHtml);
