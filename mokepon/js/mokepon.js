@@ -32,6 +32,8 @@ let botones = []
 let ataquesMokeponEnemigo  = []
 let indexAtaqueJugador 
 let indexAtaqueEnemigo 
+let victoriasJugador = 0
+let victoriasEnemigo = 0
 
 class Mokepon {
   constructor(nombre, foto, vida) {
@@ -151,10 +153,10 @@ function mostrarAtaques(ataques) {
 function secuenciaAtaque(){
   botones.forEach((boton) => {
     boton.addEventListener('click', (e) => {
-      if(e.target.textContext === '🔥'){
+      if(e.target.textContent === '🔥'){
         ataqueJugador.push('FUEGO');
         boton.style.background = '#112f58'
-      } else if (e.target.textContext === '💧'){
+      } else if (e.target.textContent === '💧'){
         ataqueJugador.push('AGUA');
         boton.style.background = '#112f58'
       } else {
@@ -192,7 +194,7 @@ function ataqueAleatorioEnemigo() {
 }
 
 function iniciarPelea(){
-  if (ataqueJugador.le === 5){
+  if (ataqueJugador.length === 5){
     combate();
   }
 }
@@ -208,29 +210,29 @@ function combate() {
     if (ataqueJugador[i] === ataqueEnemigo[i]) {
       indexAmbosOponentes(i, i);
       crearMensaje("EMPATE");
+      victoriasJugador++
+      spanVidasJugador.innerHTML = victoriasJugador;
+    } else if (ataqueJugador[i] == "FUEGO" && ataqueEnemigo[i] == "TIERRA") {
+      indexAmbosOponentes(i, i);
+      crearMensaje("Ganaste");
+      victoriasJugador++
+      spanVidasJugador.innerHTML = victoriasJugador;
+    } else if (ataqueJugador[i] == "AGUA" && ataqueEnemigo[i] == "FUEGO") {
+      indexAmbosOponentes(i, i);
+      crearMensaje("Ganaste");
+      victoriasJugador++
+      spanVidasJugador.innerHTML = victoriasJugador;
+    } else if (ataqueJugador[i] == "TIERRA" && ataqueEnemigo[i] == "AGUA") {
+      indexAmbosOponentes(i, i);
+      crearMensaje("Ganaste");
+      victoriasJugador++
+      spanVidasJugador.innerHTML = victoriasJugador;
+    } else {
+      indexAmbosOponentes(i, i);
+      crearMensaje("Perdiste");
+      victoriasEnemigo++;
+      spanVidasEnemigo.innerHTML = victoriasEnemigo;
     }
-  }
-
-
-
-
-  if (ataqueJugador == ataqueEnemigo) {
-  } else if (ataqueJugador == "FUEGO" && ataqueEnemigo == "TIERRA") {
-    crearMensaje("Ganaste");
-    vidasEnemigo--;
-    spanVidasEnemigo.innerHTML = vidasEnemigo;
-  } else if (ataqueJugador == "AGUA" && ataqueEnemigo == "FUEGO") {
-    crearMensaje("Ganaste");
-    vidasEnemigo--;
-    spanVidasEnemigo.innerHTML = vidasEnemigo;
-  } else if (ataqueJugador == "TIERRA" && ataqueEnemigo == "AGUA") {
-    crearMensaje("Ganaste");
-    vidasEnemigo--;
-    spanVidasEnemigo.innerHTML = vidasEnemigo;
-  } else {
-    crearMensaje("Perdiste");
-    vidasJugador--;
-    spanVidasJugador.innerHTML = vidasJugador;
   }
   revisarVidas();
 }
@@ -254,10 +256,12 @@ function crearMensajeFinal(resultadoFinal) {
 }
 
 function revisarVidas() {
-  if (vidasEnemigo == 0) {
-    crearMensajeFinal("FELICITACIONES! Ganaste :)");
-  } else if (vidasJugador == 0) {
-    crearMensajeFinal("Lo siento, Perdiste :(");
+  if (victoriasJugador === victoriasEnemigo) {
+    crearMensajeFinal("Esto fue un empate");
+  } else if (victoriasJugador > victoriasEnemigo) {
+    crearMensajeFinal("FELICITACIONES, Ganaste :)");
+  }else {
+  crearMensajeFinal("Lo siento, Perdiste :(");
   }
 }
 
