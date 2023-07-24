@@ -246,16 +246,32 @@ function secuenciaAtaque() {
 
 
 function enviarAtaques(){
-  fetch(`http://localhost:8080/mokepon/${jugadorId}/ataque`, {
+  fetch(`http://localhost:8080/mokepon/${jugadorId}/ataques`, {
     method: "post",
     headers: {
-      "Content.Type": "application/json"
+      "Content-Type": "application/json"
     },
-    body: json.stringify({
-      ataques: ataqueJugador,
-      idEmego: 
+    body: JSON.stringify({
+      ataques: ataqueJugador
     })
   })
+
+  intervalo = setInterval(obtenerAtaques, 50)
+}
+
+function obtenerAtaques() {
+  fetch(`http://localhost:8080/mokepon/${enemigoId}/ataques`)
+    .then(function (res) {
+      if (res.ok) {
+        res.json()
+          .then(function ({ ataques }) {
+            if (ataques.length === 5) {
+              ataqueEnemigo = ataques
+              combate()
+            }
+        });
+      }
+    });
 }
 function seleccionarMascotaEnemigo(enemigo) {
   spanMascotaEnemigo.innerHTML = enemigo.nombre;
@@ -292,6 +308,8 @@ function indexAmbosOponentes(jugador, enemigo) {
 }
 
 function combate() {
+  clearInterval(intervalo)
+
   for (let i = 0; i < ataqueJugador.length; i++) {
     if (ataqueJugador[i] === ataqueEnemigo[i]) {
       indexAmbosOponentes(i, i);
@@ -383,7 +401,7 @@ function enviarPosicion(x, y){
     .then(function (res){
       if(res.ok){
         res.json()
-          .then(function ({enemigos}){
+          .then(function ({ enemigos }){
             mokeponesEnemigos = enemigos.map(function (enemigo) {
               let mokeponEnemigo = null
               const mokeponNombre = enemigo.mokepon.nombre || "";
