@@ -54,7 +54,8 @@ mapa.width = anchoDelMapa
 mapa.height = alturaQueBuscamos
 
 class Mokepon {
-  constructor(nombre, foto, vida, fotoMapa) {
+  constructor(nombre, foto, vida, fotoMapa, id = null) {
+    this.id = id
     this.nombre = nombre;
     this.foto = foto;
     this.vida = vida;
@@ -93,69 +94,35 @@ let ratigueya = new Mokepon(
   './assets/ratigueya.png'
 );
 
-let hipodogeEnemigo = new Mokepon(
-  "Hipodoge",
-  "./assets/mokepons_mokepon_hipodoge_attack.png",
-  5,
-  "./assets/hipodoge.png"
-);
-let capipepoEnemigo = new Mokepon(
-  "Capipepo",
-  "./assets/mokepons_mokepon_capipepo_attack.png",
-  5,
-  "./assets/capipepo.png"
-);
-let ratigueyaEnemigo = new Mokepon( 
-  "Ratigueya",
-  "./assets/mokepons_mokepon_ratigueya_attack.png",
-  5,
-  './assets/ratigueya.png'
-);
-
-hipodoge.ataques.push(
+const hipodoge_ataques = [
   { nombre: "💧", id: "boton_agua" },
   { nombre: "💧", id: "boton_agua" },
   { nombre: "💧", id: "boton_agua" },
   { nombre: "🔥", id: "boton_fuego" },
   { nombre: "🌱", id: "boton_tierra" }
-);
-hipodogeEnemigo.ataques.push(
-  { nombre: "💧", id: "boton_agua" },
-  { nombre: "💧", id: "boton_agua" },
-  { nombre: "💧", id: "boton_agua" },
-  { nombre: "🔥", id: "boton_fuego" },
-  { nombre: "🌱", id: "boton_tierra" }
-);
+]
 
-capipepo.ataques.push(
+hipodoge.ataques.push(...hipodoge_ataques);
+
+const capipepo_ataques = [
   { nombre: "🌱", id: "boton_tierra" },
   { nombre: "🌱", id: "boton_tierra" },
   { nombre: "🌱", id: "boton_tierra" },
   { nombre: "💧", id: "boton_agua" },
   { nombre: "🔥", id: "boton_fuego" }
-);
-capipepoEnemigo.ataques.push(
-  { nombre: "🌱", id: "boton_tierra" },
-  { nombre: "🌱", id: "boton_tierra" },
-  { nombre: "🌱", id: "boton_tierra" },
-  { nombre: "💧", id: "boton_agua" },
-  { nombre: "🔥", id: "boton_fuego" }
-);
+]
 
-ratigueya.ataques.push(
+capipepo.ataques.push(...capipepo_ataques);
+
+const ratigueya_ataques = [
   { nombre: "🔥", id: "boton_fuego" },
   { nombre: "🔥", id: "boton_fuego" },
   { nombre: "🔥", id: "boton_fuego" },
   { nombre: "🌱", id: "boton_tierra" },
   { nombre: "💧", id: "boton_agua" }
-);
-ratigueyaEnemigo.ataques.push(
-  { nombre: "🔥", id: "boton_fuego" },
-  { nombre: "🔥", id: "boton_fuego" },
-  { nombre: "🔥", id: "boton_fuego" },
-  { nombre: "🌱", id: "boton_tierra" },
-  { nombre: "💧", id: "boton_agua" }
-);
+]
+
+ratigueya.ataques.push(...ratigueya_ataques);
 
 mokepones.push(hipodoge, capipepo, ratigueya);
 
@@ -402,6 +369,44 @@ function enviarPosicion(x, y){
       y
     })
   })
+    .then(function (res){
+      if(res.ok){
+        res.json()
+          .then(function ({enemigos}){
+            enemigos.forEach(function (enemigo) {
+              let mokeponEnemigo = null
+              const mokeponNombre = enemigo.mokepon.nombre || "";
+              if (mokeponNombre === "Hipodoge") {
+                mokeponEnemigo = new Mokepon(
+                  "Hipodoge",
+                  "./assets/mokepons_mokepon_hipodoge_attack.png",
+                  5,
+                  "./assets/hipodoge.png"
+                );
+              } else if (mokeponNombre === "Capipepo") {
+                mokeponEnemigo = new Mokepon(
+                  "Capipepo",
+                  "./assets/mokepons_mokepon_capipepo_attack.png",
+                  5,
+                  "./assets/capipepo.png"
+                );
+              } else if (mokeponNombre === "Ratigueya") {
+                mokeponEnemigo = new Mokepon(
+                  "Ratigueya",
+                  "./assets/mokepons_mokepon_ratigueya_attack.png",
+                  5,
+                  "./assets/ratigueya.png"
+                );
+              }
+
+
+              mokeponEnemigo.x = enemigo.x
+              mokeponEnemigo.y = enemigo.y
+              mokeponEnemigo.pintarMokepon()
+            });
+          })
+      }
+    })
 }
 
 function moverArriba() {
